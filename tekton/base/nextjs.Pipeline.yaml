@@ -1,0 +1,73 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: nextjs
+spec:
+  workspaces:
+  - name: output
+  params:
+  - name: app-name
+    type: string
+    description: Application name
+  - name: source-repo
+    type: string
+    description: url to the git repo
+  - name: image-repo
+    type: string
+    description: url to the image repository
+  tasks:
+  - name: clone-repo
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    params:
+    - name: url
+      value: $(params.source-repo)
+    workspaces:
+    - name: output
+      workspace: output
+  - name: create-image #lint mardown
+    taskRef:
+      name: buildah
+      kind: ClusterTask
+    runAfter:
+      - clone-repo
+    params:
+      - name: IMAGE
+        value: '$(params.image-repo):$(tasks.clone-repo.results.commit)'
+      - name: DOCKERFILE
+        value: ./next_app/Dockerfile
+    workspaces:
+      - name: source
+        workspace: output
+  - name: create-configuration
+    params: 
+    - name: app-name
+      value: $(params.app-name)
+    - name: source-repo
+      value: $(params.source-repo)
+    - name: commit
+      value: $(tasks.clone-repo.results.commit)
+    - name: image-repo
+      value: $(params.image-repo)
+    runAfter:
+    - create-image
+    taskRef:
+      name: create-configuration
+    workspaces:
+    - name: source
+      workspace: output
+  - name: deploy
+    params:
+      - name: manifest
+        value: "$(tasks.create-configuration.results.manifest)"
+      - name: app-namespace
+        value: "$(context.pipelineRun.namespace)"
+    runAfter:
+      - create-configuration
+    taskRef:
+      name: deploy
+    workspaces:
+      - name: source
+        workspace: output
+      
