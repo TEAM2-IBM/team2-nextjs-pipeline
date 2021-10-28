@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: express-sample-app
+  name: nest-js-app
 spec:
   replicas: 1
   selector:
@@ -19,8 +19,8 @@ spec:
       dnsPolicy: ClusterFirst
       schedulerName: default-scheduler
       containers:
-      - name: express-sample-app
-        image: quay.io/upslopeio/express-sample-app:d90c742ee626048c4d1e2032eb836255e4036561
+      - name: nest-js-app
+        image: quay.io/mhillb/team2-nextjs:8a8c00a9302930f6ebc902888d2ed5bc744b2e5d
         ports:
         - name: http
           protocol: TCP
