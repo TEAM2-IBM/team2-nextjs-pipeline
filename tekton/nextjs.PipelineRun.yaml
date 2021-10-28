@@ -12,7 +12,7 @@ spec:
   - name: source-repo
     value: "https://github.com/Abacaxi-Nelson/team2-nextjs-pipeline"
   - name: image-repo
-    value: quay.io/mhillb/team2nextjs
+    value: quay.io/mhillb/team2-nextjs
   workspaces: 
     - name: output
       volumeClaimTemplate:
