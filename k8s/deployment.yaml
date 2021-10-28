@@ -43,7 +43,7 @@ spec:
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            port: http
+            port: 3000
             path: /
             scheme: HTTP
           periodSeconds: 10
