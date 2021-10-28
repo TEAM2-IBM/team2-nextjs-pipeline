@@ -10,7 +10,7 @@ spec:
   - name: app-name
     value: nest-js-app
   - name: source-repo
-    value: "https://github.com/julianhahn/nextjs-for-pipeline"
+    value: "https://github.com/Abacaxi-Nelson/team2-nextjs-pipeline"
   - name: image-repo
     value: quay.io/mhillb/team2nextjs
   workspaces: 
