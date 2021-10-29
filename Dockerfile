@@ -1,8 +1,7 @@
 FROM quay.io/davidbieder/node:lts-alpine3.14 as dependencies
 WORKDIR /my-project
 COPY next_app/yarn.lock ./
-RUN yarn 
-
+RUN yarn install --frozen-lockfile
 FROM quay.io/davidbieder/node:lts-alpine3.14 as builder
 WORKDIR /my-project
 ADD next_app .
