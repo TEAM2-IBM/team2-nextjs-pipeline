@@ -3,9 +3,8 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export async function getStaticProps() {
-  const res = await fetch('http://team2-nextjs-frontend-team2-final-project.itzroks-100000kr1k-fz0n6p-6ccd7f378ae819553d37d5f2ee142bd6-0000.ams03.containers.appdomain.cloud/memes?count=10')
+  const res = await fetch('http://meme-service-team2-final-project.itzroks-100000kr1k-fz0n6p-6ccd7f378ae819553d37d5f2ee142bd6-0000.ams03.containers.appdomain.cloud/memes?count=10')
   // internal OPENSHIFT URL
-  //const res = await fetch('http://team2-nextjs-frontend.team2-final-project.svc.cluster.local/memes?count=15')
   const memes = await res.json()
   return {
     props: {
