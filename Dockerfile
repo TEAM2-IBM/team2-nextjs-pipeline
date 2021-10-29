@@ -1,6 +1,6 @@
 FROM quay.io/davidbieder/node:lts-alpine3.14 as dependencies
 WORKDIR /my-project
-COPY next_app/package.json next_app/yarn.lock ./
+COPY next_app/yarn.lock ./
 RUN yarn 
 
 FROM quay.io/davidbieder/node:lts-alpine3.14 as builder
